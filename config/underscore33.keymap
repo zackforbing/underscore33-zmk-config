@@ -25,43 +25,13 @@
             bindings = <&kp>, <&kp>;
         };
 
-        combos {
-            compatible = "zmk,combos";
-
-            combo_del {
-                timeout-ms = <50>;
-                key-positions = <18 19>;
-                bindings = <&kp DEL>;
-                layers = <1>;
-            };
-
-            combo_bspc {
-                timeout-ms = <50>;
-                key-positions = <8 9>;
-                bindings = <&kp BACKSPACE>;
-                layers = <0 1>;
-            };
-
-            combo_tab {
-                timeout-ms = <50>;
-                key-positions = <0 1>;
-                bindings = <&kp TAB>;
-                layers = <0>;
-            };
-
-            combo_esc {
-                timeout-ms = <50>;
-                key-positions = <1 2>;
-                bindings = <&kp ESC>;
-                layers = <0>;
-            };
-        };
+        combos { compatible = "zmk,combos"; };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        base {
             // -----------------------------------------------------------------------------------------
             // |  Q  |  W  |  E  |  R  |  T   |  Y  |  U   |  I  |  O  |  P  |
             // |  A  |  S  |  D  |  F  |  G   |  H  |  J   |  K  |  L  |  ;  |
@@ -69,14 +39,14 @@
             //             | CTL | ALT |  ENT | SPC | GUI  | CTL |
 
             bindings = <
-&kp Q       &kp W       &kp E        &kp R        &kp T            &kp Y     &kp U        &kp I        &kp O       &kp P
-&hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHFT F  &kp G            &kp H     &hm RSHFT J  &hm RCTRL K  &hm LALT L  &hm RGUI SEMI
-&kp Z       &kp X       &kp C        &kp V        &kp B            &kp N     &kp M        &kp COMMA    &kp DOT     &kp FSLH
-&kp LCTRL   &kp LALT    &lt 1 SPACE               &lt 2 BACKSPACE  &kp RGUI  &kp RCTRL
+&kp Q       &kp W       &kp E        &kp R        &kp T            &kp Y         &kp U        &kp I        &kp O       &kp P
+&hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHFT F  &kp G            &kp H         &hm RSHFT J  &hm RCTRL K  &hm LALT L  &hm RGUI SEMI
+&kp Z       &kp X       &kp C        &kp V        &kp B            &kp N         &kp M        &kp COMMA    &kp DOT     &kp FSLH
+&kp LCTRL   &lt 2 TAB   &lt 1 SPACE               &lt 2 BACKSPACE  &lt 1 DELETE  &kp RCTRL
             >;
         };
 
-        sym_layer {
+        numsym {
             // -----------------------------------------------------------------------------------------
             // |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |
             // |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  =  |  -  |
@@ -84,14 +54,14 @@
             //             | CTL | ALT |  ENT | SPC | GUI  | CTL |
 
             bindings = <
-&kp N1             &kp N2           &kp N3           &kp N4             &kp N5     &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS    &kp UNDER        &kp PLUS            &kp TILDE
-&hm LCMD NUMBER_6  &hm LEFT_ALT N7  &hm LCTRL N8     &hm LEFT_SHIFT N9  &kp N0     &kp LEFT_BRACKET      &hm RSHFT RIGHT_BRACKET  &hm RCTRL MINUS  &hm LEFT_ALT EQUAL  &hm RMETA GRAVE
-&kp LC(PLUS)       &kp LC(X)        &kp KP_MULTIPLY  &kp LPAR           &kp UNDER  &kp LEFT_BRACE        &kp RIGHT_BRACE          &kp SEMICOLON    &kp COLON           &hm RMETA BACKSLASH
-&trans             &trans           &trans                              &trans     &trans                &trans
+&kp N1             &kp N2           &kp N3        &kp N4             &kp N5      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS    &kp UNDER        &kp PLUS            &kp TILDE
+&hm LCMD NUMBER_6  &hm LEFT_ALT N7  &hm LCTRL N8  &hm LEFT_SHIFT N9  &kp N0      &kp LEFT_BRACKET      &hm RSHFT RIGHT_BRACKET  &hm RCTRL MINUS  &hm LEFT_ALT EQUAL  &hm RMETA GRAVE
+&kp PLUS           &kp MINUS        &kp ASTERISK  &kp SLASH          &kp KP_DOT  &kp LEFT_BRACE        &kp RIGHT_BRACE          &kp SEMICOLON    &kp COLON           &kp BACKSLASH
+&trans             &mo 3            &trans                           &mo 3       &trans                &trans
             >;
         };
 
-        nav_layer {
+        nav {
             // -----------------------------------------------------------------------------------------
             // |BTCLR| RST |     |      |     |      | PGDN |  UP  | PGUP |      |
             // | BT0 |CMENU|     |      |     | HOME | LEFT | DOWN |RIGHT | END  |
@@ -99,18 +69,18 @@
             //             | CTL | ALT |  ENT | SPC | GUI  | CTL |
 
             bindings = <
-&bt BT_CLR    &sys_reset   &trans  &trans  &trans  &trans    &kp PG_DN  &kp UP    &kp PG_UP  &trans
-&bt BT_SEL 0  &kp K_CMENU  &trans  &trans  &trans  &kp HOME  &kp LEFT   &kp DOWN  &kp RIGHT  &kp END
-&bt BT_SEL 1  &bootloader  &trans  &trans  &trans  &trans    &trans     &trans    &trans     &trans
-&trans        &trans       &trans          &trans  &trans    &trans
+&mt LEFT_SHIFT PG_UP  &mt LEFT_ALT HOME  &mt LC(LEFT_SHIFT) UP_ARROW  &mt LEFT_ALT END  &kp LS(LA(LC(BACKSLASH)))  &trans      &kp F9  &kp F10  &kp F11  &kp F12
+&mt LCTRL PAGE_DOWN   &kp LEFT_ARROW     &kp DOWN                     &kp RIGHT         &kp BACKSPACE              &kp DELETE  &kp F5  &kp F6   &kp F7   &kp F8
+&kp LC(Z)             &kp LC(X)          &kp LC(C)                    &kp LC(V)         &kp LS(LC(K))              &trans      &kp F1  &kp F2   &kp F3   &kp F4
+&trans                &trans             &mo 3                                          &trans                     &mo 3       &trans
             >;
         };
 
         Admin {
             bindings = <
-&bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &trans  &trans  &trans  &trans  &trans
+&bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4   &trans  &trans  &trans  &trans  &bootloader
 &bt BT_DISC 0  &bt BT_DISC 1   &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &trans  &trans  &trans  &trans  &trans
-&bt BT_CLR     &bt BT_CLR_ALL  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans
+&bt BT_CLR     &bt BT_CLR_ALL  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &sys_reset
 &trans         &trans          &trans                        &trans         &trans  &trans
             >;
         };
